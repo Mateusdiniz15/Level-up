@@ -1,0 +1,18 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "Mentorias",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "mentor.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "aprovar",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
+}

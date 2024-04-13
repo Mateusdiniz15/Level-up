@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "777211950858",
+    "project_id": "mentoria--level-up",
+    "storage_bucket": "mentoria--level-up.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777211950858:android:6af456178474d62c13acf3",
+        "android_client_info": {
+          "package_name": "br.com.levelup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs3U8ABw1lppaUE9m9PlpG58PPN6fG0Xo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777211950858:android:c5dde26e2ded47ac13acf3",
+        "android_client_info": {
+          "package_name": "com.levelup.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs3U8ABw1lppaUE9m9PlpG58PPN6fG0Xo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>LevelUP</string>
+	<string>LevelUp</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>LevelUP</string>
+	<string>LevelUp</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 
@@ -53,7 +53,12 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 
-
+	<key>NSCameraUsageDescription</key>
+    <string>Você permite, usar a sua câmera?</string>
+	<key>NSMicrophoneUsageDescription</key>
+    <string>Você necessita de permissão para gravar um áudio</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>Você permite, usar a sua galeria?</string>
 
 
 

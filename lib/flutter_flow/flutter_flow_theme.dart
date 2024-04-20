@@ -32,6 +32,8 @@ abstract class FlutterFlowTheme {
   late Color error;
   late Color info;
 
+  late Color linkedin;
+
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
   @Deprecated('Use displaySmall instead')
@@ -106,12 +108,12 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color primary = const Color(0xFF243E99);
   late Color secondary = const Color(0xFF6596F5);
   late Color tertiary = const Color(0xFF995C24);
-  late Color alternate = const Color(0xFFE0E3E7);
+  late Color alternate = const Color(0xFFE5E4E6);
   late Color primaryText = const Color(0xFF14181B);
   late Color secondaryText = const Color(0xFF57636C);
   late Color primaryBackground = const Color(0xFFF1F4F8);
   late Color secondaryBackground = const Color(0xFFFFFFFF);
-  late Color accent1 = const Color(0x4C4B39EF);
+  late Color accent1 = const Color(0xFF2B2B2B);
   late Color accent2 = const Color(0x4D39D2C0);
   late Color accent3 = const Color(0x4DEE8B60);
   late Color accent4 = const Color(0xCCFFFFFF);
@@ -119,6 +121,8 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color warning = const Color(0xFFF9CF58);
   late Color error = const Color(0xFFFF5963);
   late Color info = const Color(0xFFFFFFFF);
+
+  late Color linkedin = const Color(0xFF0E76A8);
 }
 
 abstract class Typography {

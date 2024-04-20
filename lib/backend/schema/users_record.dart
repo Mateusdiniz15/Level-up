@@ -60,52 +60,35 @@ class UsersRecord extends FirestoreRecord {
   String get linkedIn => _linkedIn ?? '';
   bool hasLinkedIn() => _linkedIn != null;
 
-  // "quantidadeMentorias" field.
-  int? _quantidadeMentorias;
-  int get quantidadeMentorias => _quantidadeMentorias ?? 0;
-  bool hasQuantidadeMentorias() => _quantidadeMentorias != null;
+  // "numeroMentorias" field.
+  int? _numeroMentorias;
+  int get numeroMentorias => _numeroMentorias ?? 0;
+  bool hasNumeroMentorias() => _numeroMentorias != null;
 
   // "sobreMim" field.
   String? _sobreMim;
   String get sobreMim => _sobreMim ?? '';
   bool hasSobreMim() => _sobreMim != null;
 
-  // "formacoesAcademica" field.
-  List<FormacaoStruct>? _formacoesAcademica;
-  List<FormacaoStruct> get formacoesAcademica =>
-      _formacoesAcademica ?? const [];
-  bool hasFormacoesAcademica() => _formacoesAcademica != null;
-
-  // "objetivos" field.
-  String? _objetivos;
-  String get objetivos => _objetivos ?? '';
-  bool hasObjetivos() => _objetivos != null;
-
-  // "disponibilidade" field.
-  List<HorasDisponiveisStruct>? _disponibilidade;
-  List<HorasDisponiveisStruct> get disponibilidade =>
-      _disponibilidade ?? const [];
-  bool hasDisponibilidade() => _disponibilidade != null;
-
-  // "termoPrivacidade" field.
-  bool? _termoPrivacidade;
-  bool get termoPrivacidade => _termoPrivacidade ?? false;
-  bool hasTermoPrivacidade() => _termoPrivacidade != null;
-
   // "rating" field.
   double? _rating;
   double get rating => _rating ?? 0.0;
   bool hasRating() => _rating != null;
 
-  // "instituicao" field.
-  InstituicaoStruct? _instituicao;
-  InstituicaoStruct get instituicao => _instituicao ?? InstituicaoStruct();
-  bool hasInstituicao() => _instituicao != null;
+  // "informcoes_adicionais" field.
+  String? _informcoesAdicionais;
+  String get informcoesAdicionais => _informcoesAdicionais ?? '';
+  bool hasInformcoesAdicionais() => _informcoesAdicionais != null;
 
   // "campus" field.
-  CampusStruct? _campus;
-  CampusStruct get campus => _campus ?? CampusStruct();
+  String? _campus;
+  String get campus => _campus ?? '';
   bool hasCampus() => _campus != null;
+
+  // "aceite" field.
+  bool? _aceite;
+  bool get aceite => _aceite ?? false;
+  bool hasAceite() => _aceite != null;
 
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
@@ -117,21 +100,12 @@ class UsersRecord extends FirestoreRecord {
     _tipoUsuario = snapshotData['tipoUsuario'] as String?;
     _especialidade = snapshotData['especialidade'] as String?;
     _linkedIn = snapshotData['linkedIn'] as String?;
-    _quantidadeMentorias = castToType<int>(snapshotData['quantidadeMentorias']);
+    _numeroMentorias = castToType<int>(snapshotData['numeroMentorias']);
     _sobreMim = snapshotData['sobreMim'] as String?;
-    _formacoesAcademica = getStructList(
-      snapshotData['formacoesAcademica'],
-      FormacaoStruct.fromMap,
-    );
-    _objetivos = snapshotData['objetivos'] as String?;
-    _disponibilidade = getStructList(
-      snapshotData['disponibilidade'],
-      HorasDisponiveisStruct.fromMap,
-    );
-    _termoPrivacidade = snapshotData['termoPrivacidade'] as bool?;
     _rating = castToType<double>(snapshotData['rating']);
-    _instituicao = InstituicaoStruct.maybeFromMap(snapshotData['instituicao']);
-    _campus = CampusStruct.maybeFromMap(snapshotData['campus']);
+    _informcoesAdicionais = snapshotData['informcoes_adicionais'] as String?;
+    _campus = snapshotData['campus'] as String?;
+    _aceite = snapshotData['aceite'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -177,13 +151,12 @@ Map<String, dynamic> createUsersRecordData({
   String? tipoUsuario,
   String? especialidade,
   String? linkedIn,
-  int? quantidadeMentorias,
+  int? numeroMentorias,
   String? sobreMim,
-  String? objetivos,
-  bool? termoPrivacidade,
   double? rating,
-  InstituicaoStruct? instituicao,
-  CampusStruct? campus,
+  String? informcoesAdicionais,
+  String? campus,
+  bool? aceite,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -196,21 +169,14 @@ Map<String, dynamic> createUsersRecordData({
       'tipoUsuario': tipoUsuario,
       'especialidade': especialidade,
       'linkedIn': linkedIn,
-      'quantidadeMentorias': quantidadeMentorias,
+      'numeroMentorias': numeroMentorias,
       'sobreMim': sobreMim,
-      'objetivos': objetivos,
-      'termoPrivacidade': termoPrivacidade,
       'rating': rating,
-      'instituicao': InstituicaoStruct().toMap(),
-      'campus': CampusStruct().toMap(),
+      'informcoes_adicionais': informcoesAdicionais,
+      'campus': campus,
+      'aceite': aceite,
     }.withoutNulls,
   );
-
-  // Handle nested data for "instituicao" field.
-  addInstituicaoStructData(firestoreData, instituicao, 'instituicao');
-
-  // Handle nested data for "campus" field.
-  addCampusStructData(firestoreData, campus, 'campus');
 
   return firestoreData;
 }
@@ -220,7 +186,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
 
   @override
   bool equals(UsersRecord? e1, UsersRecord? e2) {
-    const listEquality = ListEquality();
     return e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
         e1?.photoUrl == e2?.photoUrl &&
@@ -230,15 +195,12 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.tipoUsuario == e2?.tipoUsuario &&
         e1?.especialidade == e2?.especialidade &&
         e1?.linkedIn == e2?.linkedIn &&
-        e1?.quantidadeMentorias == e2?.quantidadeMentorias &&
+        e1?.numeroMentorias == e2?.numeroMentorias &&
         e1?.sobreMim == e2?.sobreMim &&
-        listEquality.equals(e1?.formacoesAcademica, e2?.formacoesAcademica) &&
-        e1?.objetivos == e2?.objetivos &&
-        listEquality.equals(e1?.disponibilidade, e2?.disponibilidade) &&
-        e1?.termoPrivacidade == e2?.termoPrivacidade &&
         e1?.rating == e2?.rating &&
-        e1?.instituicao == e2?.instituicao &&
-        e1?.campus == e2?.campus;
+        e1?.informcoesAdicionais == e2?.informcoesAdicionais &&
+        e1?.campus == e2?.campus &&
+        e1?.aceite == e2?.aceite;
   }
 
   @override
@@ -252,15 +214,12 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.tipoUsuario,
         e?.especialidade,
         e?.linkedIn,
-        e?.quantidadeMentorias,
+        e?.numeroMentorias,
         e?.sobreMim,
-        e?.formacoesAcademica,
-        e?.objetivos,
-        e?.disponibilidade,
-        e?.termoPrivacidade,
         e?.rating,
-        e?.instituicao,
-        e?.campus
+        e?.informcoesAdicionais,
+        e?.campus,
+        e?.aceite
       ]);
 
   @override

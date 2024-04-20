@@ -1,16 +1,48 @@
 {
   "indexes": [
     {
-      "collectionGroup": "Mentorias",
+      "collectionGroup": "mentorias",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "mentor.id",
+          "fieldPath": "uidMentor",
           "order": "ASCENDING"
         },
         {
           "fieldPath": "aprovar",
           "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "chat_messages",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "chat_user",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timestamp",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "mentorias",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "uidMentor",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "aprovar",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "data",
+          "order": "DESCENDING"
         }
       ]
     }

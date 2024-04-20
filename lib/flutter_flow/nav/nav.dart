@@ -7,6 +7,7 @@ import '/backend/backend.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -81,9 +82,29 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? const HomeWidget() : const LoginWidget(),
         ),
         FFRoute(
-          name: 'Home',
-          path: '/home',
-          builder: (context, params) => const HomeWidget(),
+          name: 'Cadastro1',
+          path: '/cadastro1',
+          builder: (context, params) => const Cadastro1Widget(),
+        ),
+        FFRoute(
+          name: 'CadastroAlunoMentor',
+          path: '/cadastroAlunoMentor',
+          builder: (context, params) => CadastroAlunoMentorWidget(
+            pNomePagina: params.getParam(
+              'pNomePagina',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'CadastroInfo',
+          path: '/cadastroInfo',
+          builder: (context, params) => const CadastroInfoWidget(),
+        ),
+        FFRoute(
+          name: 'FilterCadastroAlunoMentor',
+          path: '/filterCadastroAlunoMentor',
+          builder: (context, params) => const FilterCadastroAlunoMentorWidget(),
         ),
         FFRoute(
           name: 'Login',
@@ -91,57 +112,77 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const LoginWidget(),
         ),
         FFRoute(
-          name: 'Registro',
-          path: '/registro',
-          builder: (context, params) => RegistroWidget(
-            pTipoUsuario: params.getParam(
-              'pTipoUsuario',
-              ParamType.String,
-            ),
-          ),
+          name: 'Home',
+          path: '/home',
+          builder: (context, params) => const HomeWidget(),
         ),
         FFRoute(
-          name: 'Passo01',
-          path: '/passo01',
-          builder: (context, params) => const Passo01Widget(),
+          name: 'Search',
+          path: '/search',
+          builder: (context, params) => const SearchWidget(),
         ),
         FFRoute(
-          name: 'Mentor',
-          path: '/mentor',
-          builder: (context, params) => MentorWidget(
-            pTipoUsuario: params.getParam(
-              'pTipoUsuario',
-              ParamType.String,
-            ),
-          ),
+          name: 'Choose',
+          path: '/choose',
+          builder: (context, params) => const ChooseWidget(),
         ),
         FFRoute(
-          name: 'Aluno',
-          path: '/aluno',
-          builder: (context, params) => AlunoWidget(
-            pTipoUsuario: params.getParam(
-              'pTipoUsuario',
-              ParamType.String,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: 'DetalhesMentor',
-          path: '/detalhesMentor',
+          name: 'Agendamento',
+          path: '/agendamento',
           asyncParams: {
-            'pDoc': getDoc(['Users'], UsersRecord.fromSnapshot),
+            'docMentoria': getDoc(['mentorias'], MentoriasRecord.fromSnapshot),
+            'docUserMentor': getDoc(['Users'], UsersRecord.fromSnapshot),
           },
-          builder: (context, params) => DetalhesMentorWidget(
-            pDoc: params.getParam(
-              'pDoc',
+          builder: (context, params) => AgendamentoWidget(
+            docUser: params.getParam(
+              'docUser',
+              ParamType.DocumentReference,
+              false,
+              ['Users'],
+            ),
+            docMentoria: params.getParam(
+              'docMentoria',
               ParamType.Document,
             ),
+            docUserMentor: params.getParam(
+              'docUserMentor',
+              ParamType.Document,
+            ),
+            atualizacao: params.getParam(
+              'atualizacao',
+              ParamType.bool,
+            ),
           ),
         ),
         FFRoute(
-          name: 'BuscarMentores',
-          path: '/buscarMentores',
-          builder: (context, params) => const BuscarMentoresWidget(),
+          name: 'EditarPerfil',
+          path: '/editarPerfil',
+          builder: (context, params) => const EditarPerfilWidget(),
+        ),
+        FFRoute(
+          name: 'MeuPefil',
+          path: '/meuPefil',
+          builder: (context, params) => const MeuPefilWidget(),
+        ),
+        FFRoute(
+          name: 'FilterMentor',
+          path: '/filterMentor',
+          builder: (context, params) => const FilterMentorWidget(),
+        ),
+        FFRoute(
+          name: 'Historico',
+          path: '/historico',
+          builder: (context, params) => HistoricoWidget(
+            pPageName: params.getParam(
+              'pPageName',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'Favoritos',
+          path: '/favoritos',
+          builder: (context, params) => const FavoritosWidget(),
         ),
         FFRoute(
           name: 'Agenda',
@@ -149,28 +190,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const AgendaWidget(),
         ),
         FFRoute(
-          name: 'Agendamento',
-          path: '/agendamento',
-          asyncParams: {
-            'pDocMentor': getDoc(['Users'], UsersRecord.fromSnapshot),
-          },
-          builder: (context, params) => AgendamentoWidget(
-            pDocMentor: params.getParam(
-              'pDocMentor',
-              ParamType.Document,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: 'Perfil',
-          path: '/perfil',
-          builder: (context, params) => const PerfilWidget(),
-        ),
-        FFRoute(
           name: 'chatPage',
           path: '/chatPage',
           asyncParams: {
-            'pUserDoc': getDoc(['Users'], UsersRecord.fromSnapshot),
+            'userDoc': getDoc(['Users'], UsersRecord.fromSnapshot),
           },
           builder: (context, params) => ChatPageWidget(
             pChatUser: params.getParam(
@@ -179,13 +202,62 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               false,
               ['chats'],
             ),
-            pUserDoc: params.getParam(
-              'pUserDoc',
+            userDoc: params.getParam(
+              'userDoc',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'chat_historico',
+          path: '/chatHistorico',
+          builder: (context, params) => const ChatHistoricoWidget(),
+        ),
+        FFRoute(
+          name: 'DetalhesMentor',
+          path: '/detalhesMentor',
+          asyncParams: {
+            'pUser': getDoc(['Users'], UsersRecord.fromSnapshot),
+            'mentoria': getDoc(['mentorias'], MentoriasRecord.fromSnapshot),
+          },
+          builder: (context, params) => DetalhesMentorWidget(
+            pChatId: params.getParam(
+              'pChatId',
+              ParamType.DocumentReference,
+              false,
+              ['chats'],
+            ),
+            pUser: params.getParam(
+              'pUser',
+              ParamType.Document,
+            ),
+            mentoria: params.getParam(
+              'mentoria',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'Video',
+          path: '/video',
+          builder: (context, params) => const VideoWidget(),
+        ),
+        FFRoute(
+          name: 'FormacaoAcademica',
+          path: '/formacaoAcademica',
+          asyncParams: {
+            'docFormacaoAcademica': getDoc(
+                ['formacao_academica'], FormacaoAcademicaRecord.fromSnapshot),
+          },
+          builder: (context, params) => FormacaoAcademicaWidget(
+            docFormacaoAcademica: params.getParam(
+              'docFormacaoAcademica',
               ParamType.Document,
             ),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
+      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {
@@ -260,7 +332,7 @@ extension _GoRouterStateExtensions on GoRouterState {
       extra != null ? extra as Map<String, dynamic> : {};
   Map<String, dynamic> get allParams => <String, dynamic>{}
     ..addAll(pathParameters)
-    ..addAll(queryParameters)
+    ..addAll(uri.queryParameters)
     ..addAll(extraMap);
   TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
       ? extraMap[kTransitionInfoKey] as TransitionInfo
@@ -355,7 +427,7 @@ class FFRoute {
           }
 
           if (requireAuth && !appStateNotifier.loggedIn) {
-            appStateNotifier.setRedirectLocationIfUnset(state.location);
+            appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
             return '/login';
           }
           return null;
@@ -370,15 +442,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? isWeb
-                  ? Container()
-                  : Container(
-                      color: Colors.transparent,
-                      child: Image.asset(
-                        'assets/images/logo.jpeg',
-                        fit: BoxFit.contain,
-                      ),
-                    )
+              ? Center(
+                  child: LinearProgressIndicator(
+                    color: FlutterFlowTheme.of(context).alternate,
+                  ),
+                )
               : page;
 
           final transitionInfo = state.transitionInfo;
@@ -432,7 +500,7 @@ class RootPageContext {
   static bool isInactiveRootPage(BuildContext context) {
     final rootPageContext = context.read<RootPageContext?>();
     final isRootPage = rootPageContext?.isRootPage ?? false;
-    final location = GoRouter.of(context).location;
+    final location = GoRouterState.of(context).uri.toString();
     return isRootPage &&
         location != '/' &&
         location != rootPageContext?.errorRoute;

@@ -1,4 +1,4 @@
-package br.com.levelup
+package com.levelup.app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -14,6 +14,16 @@ class MentoriasRecord extends FirestoreRecord {
     _initializeFields();
   }
 
+  // "uidMentor" field.
+  DocumentReference? _uidMentor;
+  DocumentReference? get uidMentor => _uidMentor;
+  bool hasUidMentor() => _uidMentor != null;
+
+  // "uidAluno" field.
+  DocumentReference? _uidAluno;
+  DocumentReference? get uidAluno => _uidAluno;
+  bool hasUidAluno() => _uidAluno != null;
+
   // "criada" field.
   DateTime? _criada;
   DateTime? get criada => _criada;
@@ -39,28 +49,24 @@ class MentoriasRecord extends FirestoreRecord {
   DateTime? get data => _data;
   bool hasData() => _data != null;
 
-  // "mentor" field.
-  UsuarioStruct? _mentor;
-  UsuarioStruct get mentor => _mentor ?? UsuarioStruct();
-  bool hasMentor() => _mentor != null;
-
-  // "aluno" field.
-  UsuarioStruct? _aluno;
-  UsuarioStruct get aluno => _aluno ?? UsuarioStruct();
-  bool hasAluno() => _aluno != null;
+  // "chatId" field.
+  DocumentReference? _chatId;
+  DocumentReference? get chatId => _chatId;
+  bool hasChatId() => _chatId != null;
 
   void _initializeFields() {
+    _uidMentor = snapshotData['uidMentor'] as DocumentReference?;
+    _uidAluno = snapshotData['uidAluno'] as DocumentReference?;
     _criada = snapshotData['criada'] as DateTime?;
     _finalizada = snapshotData['finalizada'] as bool?;
     _aprovar = snapshotData['aprovar'] as bool?;
     _hora = snapshotData['hora'] as DateTime?;
     _data = snapshotData['data'] as DateTime?;
-    _mentor = UsuarioStruct.maybeFromMap(snapshotData['mentor']);
-    _aluno = UsuarioStruct.maybeFromMap(snapshotData['aluno']);
+    _chatId = snapshotData['chatId'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('Mentorias');
+      FirebaseFirestore.instance.collection('mentorias');
 
   static Stream<MentoriasRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => MentoriasRecord.fromSnapshot(s));
@@ -94,31 +100,27 @@ class MentoriasRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createMentoriasRecordData({
+  DocumentReference? uidMentor,
+  DocumentReference? uidAluno,
   DateTime? criada,
   bool? finalizada,
   bool? aprovar,
   DateTime? hora,
   DateTime? data,
-  UsuarioStruct? mentor,
-  UsuarioStruct? aluno,
+  DocumentReference? chatId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
+      'uidMentor': uidMentor,
+      'uidAluno': uidAluno,
       'criada': criada,
       'finalizada': finalizada,
       'aprovar': aprovar,
       'hora': hora,
       'data': data,
-      'mentor': UsuarioStruct().toMap(),
-      'aluno': UsuarioStruct().toMap(),
+      'chatId': chatId,
     }.withoutNulls,
   );
-
-  // Handle nested data for "mentor" field.
-  addUsuarioStructData(firestoreData, mentor, 'mentor');
-
-  // Handle nested data for "aluno" field.
-  addUsuarioStructData(firestoreData, aluno, 'aluno');
 
   return firestoreData;
 }
@@ -128,24 +130,26 @@ class MentoriasRecordDocumentEquality implements Equality<MentoriasRecord> {
 
   @override
   bool equals(MentoriasRecord? e1, MentoriasRecord? e2) {
-    return e1?.criada == e2?.criada &&
+    return e1?.uidMentor == e2?.uidMentor &&
+        e1?.uidAluno == e2?.uidAluno &&
+        e1?.criada == e2?.criada &&
         e1?.finalizada == e2?.finalizada &&
         e1?.aprovar == e2?.aprovar &&
         e1?.hora == e2?.hora &&
         e1?.data == e2?.data &&
-        e1?.mentor == e2?.mentor &&
-        e1?.aluno == e2?.aluno;
+        e1?.chatId == e2?.chatId;
   }
 
   @override
   int hash(MentoriasRecord? e) => const ListEquality().hash([
+        e?.uidMentor,
+        e?.uidAluno,
         e?.criada,
         e?.finalizada,
         e?.aprovar,
         e?.hora,
         e?.data,
-        e?.mentor,
-        e?.aluno
+        e?.chatId
       ]);
 
   @override

@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>br.com.levelup</string>
+	<string>com.levelup.app</string>
 	<key>PROJECT_ID</key>
 	<string>mentoria--level-up</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:777211950858:ios:22b0b5570f6450e913acf3</string>
+	<string>1:777211950858:ios:eea65b73e1a0295713acf3</string>
 </dict>
 </plist>

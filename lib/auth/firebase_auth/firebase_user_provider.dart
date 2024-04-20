@@ -5,8 +5,8 @@ import '../base_auth_user_provider.dart';
 
 export '../base_auth_user_provider.dart';
 
-class LevelUPFirebaseUser extends BaseAuthUser {
-  LevelUPFirebaseUser(this.user);
+class LevelUpFirebaseUser extends BaseAuthUser {
+  LevelUpFirebaseUser(this.user);
   User? user;
   @override
   bool get loggedIn => user != null;
@@ -54,17 +54,17 @@ class LevelUPFirebaseUser extends BaseAuthUser {
 
   static BaseAuthUser fromUserCredential(UserCredential userCredential) =>
       fromFirebaseUser(userCredential.user);
-  static BaseAuthUser fromFirebaseUser(User? user) => LevelUPFirebaseUser(user);
+  static BaseAuthUser fromFirebaseUser(User? user) => LevelUpFirebaseUser(user);
 }
 
-Stream<BaseAuthUser> levelUPFirebaseUserStream() => FirebaseAuth.instance
+Stream<BaseAuthUser> levelUpFirebaseUserStream() => FirebaseAuth.instance
         .authStateChanges()
         .debounce((user) => user == null && !loggedIn
             ? TimerStream(true, const Duration(seconds: 1))
             : Stream.value(user))
         .map<BaseAuthUser>(
       (user) {
-        currentUser = LevelUPFirebaseUser(user);
+        currentUser = LevelUpFirebaseUser(user);
         return currentUser!;
       },
     );

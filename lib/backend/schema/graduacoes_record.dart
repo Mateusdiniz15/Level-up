@@ -14,17 +14,17 @@ class GraduacoesRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "nome" field.
-  String? _nome;
-  String get nome => _nome ?? '';
-  bool hasNome() => _nome != null;
+  // "titulo" field.
+  String? _titulo;
+  String get titulo => _titulo ?? '';
+  bool hasTitulo() => _titulo != null;
 
   void _initializeFields() {
-    _nome = snapshotData['nome'] as String?;
+    _titulo = snapshotData['titulo'] as String?;
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('Graduacoes');
+      FirebaseFirestore.instance.collection('graduacoes');
 
   static Stream<GraduacoesRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => GraduacoesRecord.fromSnapshot(s));
@@ -58,11 +58,11 @@ class GraduacoesRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createGraduacoesRecordData({
-  String? nome,
+  String? titulo,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'nome': nome,
+      'titulo': titulo,
     }.withoutNulls,
   );
 
@@ -74,11 +74,11 @@ class GraduacoesRecordDocumentEquality implements Equality<GraduacoesRecord> {
 
   @override
   bool equals(GraduacoesRecord? e1, GraduacoesRecord? e2) {
-    return e1?.nome == e2?.nome;
+    return e1?.titulo == e2?.titulo;
   }
 
   @override
-  int hash(GraduacoesRecord? e) => const ListEquality().hash([e?.nome]);
+  int hash(GraduacoesRecord? e) => const ListEquality().hash([e?.titulo]);
 
   @override
   bool isValidKey(Object? o) => o is GraduacoesRecord;
